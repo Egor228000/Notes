@@ -51,7 +51,7 @@ class SplashActivity: ComponentActivity() {
         }
         Box(modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black), contentAlignment = Alignment.Center){
+            .background(Color(0xFF555454)), contentAlignment = Alignment.Center){
             Image(
                 modifier = Modifier.size(200.dp).alpha(alpha.value),
                 painter = painterResource(id = R.drawable.logo),
