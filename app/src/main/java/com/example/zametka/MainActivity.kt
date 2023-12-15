@@ -154,7 +154,7 @@ fun GlavScreen() {
     }
 
     var temperature by remember { mutableStateOf("") }
-    val apiKey = "Your Api"
+    val apiKey = "216b89a4ff2a4638a9a73109231311"
     val apiUrl = "https://api.weatherapi.com/v1/current.json?key=$apiKey"
     val contexting = LocalContext.current as? Activity
 
