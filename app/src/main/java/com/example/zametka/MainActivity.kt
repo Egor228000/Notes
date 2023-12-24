@@ -154,7 +154,7 @@ fun GlavScreen() {
     }
 
     var temperature by remember { mutableStateOf("") }
-    val apiKey = "216b89a4ff2a4638a9a73109231311"
+    val apiKey = ""
     val apiUrl = "https://api.weatherapi.com/v1/current.json?key=$apiKey"
     val contexting = LocalContext.current as? Activity
 
@@ -893,6 +893,7 @@ fun GlavScreen() {
                                 Button(
                                     onClick = {
                                         if (opis.isNotEmpty()) {
+                                            open_dialog = false
                                             val newZametka = opis
                                             val updatedZametki = zametkiValue + listOf(newZametka)
                                             opis = ""
