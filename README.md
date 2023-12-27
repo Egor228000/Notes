@@ -7,6 +7,7 @@
 - Удаление заметок и задач
 - Отслежиание прогресса выполнение задач
 - Показ температуры по местоположению
+- Вход в Google аккаунт
 ## Стэк технологий
 - [Jatpack Compose](https://developer.android.com/jetpack/compose) - для создание пользовательского интерфейса
 - [Navigating Compose](https://developer.android.com/jetpack/compose/navigation) - navigation
