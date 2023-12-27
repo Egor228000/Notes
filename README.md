@@ -11,7 +11,7 @@
 ## Стэк технологий
 - [Jatpack Compose](https://developer.android.com/jetpack/compose) - для создание пользовательского интерфейса
 - [Navigating Compose](https://developer.android.com/jetpack/compose/navigation) - navigation
-- [Coil](https://coil-kt.github.io/coil/) - library for uploading images
+- [Coil](https://coil-kt.github.io/coil/) - библиотека для загрузки изображений
 - [Balloon](https://github.com/skydoves/Balloon) - всплывающее сообщение для подсказки пользователям
 - [Okhttp](https://github.com/square/okhttp) - библиотека для работы с HTTP
 - [Retrofit2](https://square.github.io/retrofit/) - REST клиент
