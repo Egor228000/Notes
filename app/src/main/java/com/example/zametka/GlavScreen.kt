@@ -47,6 +47,7 @@ import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -75,8 +76,8 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
-import androidx.navigation.NavController
 import com.example.zametka.UserStore.Companion.dataStore
+import com.google.accompanist.systemuicontroller.SystemUiController
 import com.skydoves.balloon.ArrowOrientation
 import com.skydoves.balloon.ArrowPositionRules
 import com.skydoves.balloon.BalloonAnimation
@@ -93,9 +94,11 @@ import org.json.JSONObject
 import java.net.URL
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
+
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun GlavScreen(navController: NavController, context: Context, store: UserStore) {
+fun GlavScreen(context: Context, store: UserStore, systemUiController: SystemUiController) {
+
 
 
     var opis by remember { mutableStateOf("") }
@@ -119,6 +122,12 @@ fun GlavScreen(navController: NavController, context: Context, store: UserStore)
                 continuation.resume(Unit)
             }
         }
+    }
+    SideEffect {
+        systemUiController.setStatusBarColor(
+            color = if (openThemeValue) Color(0xFFCEC9CE) else Color(0xFF292929),
+            darkIcons = false
+        )
     }
 
     val newZadacha = textFieldList.joinToString(",")
@@ -302,10 +311,6 @@ fun GlavScreen(navController: NavController, context: Context, store: UserStore)
 
                                 var showDialog by remember { mutableStateOf(false) }
 
-// ...
-
-
-
                                 var checkCount by remember { mutableIntStateOf(store.checkCount) }
 
                                 LaunchedEffect(checkCount) {
@@ -350,17 +355,7 @@ fun GlavScreen(navController: NavController, context: Context, store: UserStore)
                                                     )
                                                     )
                                                 )
-                                                
-                                               /* Text(
-                                                    text = store.checkCount.toString(),
-                                                    fontSize = 20.sp,
-                                                    color = Color.White
-                                                )
-                                                Button(onClick = {CoroutineScope(Dispatchers.IO).launch {
-                                                    store.updatecheckCount(0)
-                                                } }) {
-                                                    Text("Очистить")
-                                                }*/
+
 
                                                  Text(
                                                      text = "${numberSort + 1}. $zadacha",
@@ -430,9 +425,6 @@ fun GlavScreen(navController: NavController, context: Context, store: UserStore)
 
 
 
-
-
-
                                     }
                                     if (store.checkCount == zadachiUpdateList.size) {
                                         showDialog = true
@@ -497,9 +489,6 @@ fun GlavScreen(navController: NavController, context: Context, store: UserStore)
                                     }
 
                                 }
-
-
-
                             }
 
                         }

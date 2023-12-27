@@ -11,7 +11,6 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,10 +22,11 @@ import androidx.navigation.compose.composable
 import com.example.zametka.GlavScreen
 import com.example.zametka.Prew
 import com.example.zametka.UserStore
+import com.google.accompanist.systemuicontroller.SystemUiController
 
 
 @Composable
-fun MenuGraph(navController: NavHostController, context: Context, store: UserStore) {
+fun MenuGraph(navController: NavHostController, context: Context, store: UserStore, systemUiController: SystemUiController) {
 
     var isLoggedIn by remember { mutableStateOf(store.isLoggedIn) }
 
@@ -52,7 +52,7 @@ fun MenuGraph(navController: NavHostController, context: Context, store: UserSto
                         towards = AnimatedContentTransitionScope.SlideDirection.Start
                     )
                 }) {
-                GlavScreen(navController, context, store)
+                GlavScreen(context, store, systemUiController)
             }
         }
     }

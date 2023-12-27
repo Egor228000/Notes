@@ -3,11 +3,7 @@ package com.example.zametka
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -21,6 +17,9 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         setContent {
             val systemUiController = rememberSystemUiController()
+            val navController = rememberNavController()
+            val context = LocalContext.current
+            val store = UserStore(context)
             // status bar
             SideEffect {
                 systemUiController.setStatusBarColor(
@@ -29,12 +28,10 @@ class MainActivity : ComponentActivity() {
                 )
             }
 
-            val navController = rememberNavController()
-            val context = LocalContext.current
-            val store = UserStore(context)
 
 
-            MenuGraph(navController, context, store)
+
+            MenuGraph(navController, context, store, systemUiController)
 
         }
     }
