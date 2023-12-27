@@ -1,19 +1,27 @@
 package com.example.zametka
 
 import android.content.Context
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.emptyPreferences
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import java.io.IOException
 
 class UserStore(
     val context: Context
@@ -27,6 +35,36 @@ class UserStore(
         private val ZADACHA = stringPreferencesKey("zadacha")
 
     }
+
+
+
+    var checkCount: Int by mutableStateOf(readcheckCount())
+
+
+
+    private fun readcheckCount(): Int {
+        return runBlocking {
+            context.dataStore.data
+                .map { preferences ->
+                    preferences[intPreferencesKey("checkCount")] ?: 0
+                }
+                .first()
+        }
+    }
+
+
+    suspend fun updatecheckCount(newcheckCount: Int){
+        context.dataStore.edit { preferences ->
+            preferences[intPreferencesKey("checkCount")] = newcheckCount
+        }
+        checkCount =
+            context.dataStore.data.first()[intPreferencesKey("checkCount")] ?: 0
+    }
+
+
+
+    ////////////////////////Todo
+
 
 
 
@@ -50,12 +88,12 @@ class UserStore(
 
 
     val getAccessToken_1: Flow<List<String>> = context.dataStore.data.map { preferences ->
-        preferences[ZAMETKA]?.split(",") ?: emptyList()
+        preferences[ZAMETKA]?.split(".>") ?: emptyList()
     }
 
     suspend fun saveToken_1(zametki: List<String>) {
         context.dataStore.edit { preferences ->
-            preferences[ZAMETKA] = zametki.joinToString(" ")
+            preferences[ZAMETKA] = zametki.joinToString(".>")
         }
     }
 
@@ -93,11 +131,76 @@ class UserStore(
             context.dataStore.data.first()[booleanPreferencesKey("openThemeValue")] ?: false
     }
 
+    var isLoggedIn: Boolean by mutableStateOf(readisLoggedIn())
 
 
 
+    private fun readisLoggedIn(): Boolean {
+        return runBlocking {
+            context.dataStore.data
+                .map { preferences ->
+                    preferences[booleanPreferencesKey("isLoggedIn")] ?: false
+                }
+                .first()
+        }
+    }
 
 
+    suspend fun updateisLoggedIn(newValue: Boolean){
+        context.dataStore.edit { preferences ->
+            preferences[booleanPreferencesKey("isLoggedIn")] = newValue
+        }
+        isLoggedIn =
+            context.dataStore.data.first()[booleanPreferencesKey("isLoggedIn")] ?: false
+    }
+
+   /* var checkedCount: Int by mutableStateOf(readcheckedCount())
+
+
+    private fun readcheckedCount(): Int {
+        return runBlocking {
+            context.dataStore.data
+                .map { preferences -> preferences[intPreferencesKey("checkedCount")] ?: 0 }
+                .first()
+        }
+    }
+
+    suspend fun updatecheckedCount(newValuess: Int) {
+        context.dataStore.edit { preferences ->
+            preferences[intPreferencesKey("checkedCount")] = newValuess
+        }
+        checkedCount = newValuess
+    }
+
+    suspend fun clearCheckedCount() {
+        context.dataStore.edit { preferences ->
+            preferences.remove(intPreferencesKey("checkedCount"))
+        }
+        checkedCount = 0
+    }
+
+    var checkBox: Boolean by mutableStateOf(readcheckBox())
+
+
+
+    private fun readcheckBox(): Boolean {
+        return runBlocking {
+            context.dataStore.data
+                .map { preferences ->
+                    preferences[booleanPreferencesKey("checkBox")] ?: false
+                }
+                .first()
+        }
+    }
+
+
+    suspend fun updatecheckBox(newValueg: Boolean){
+        context.dataStore.edit { preferences ->
+            preferences[booleanPreferencesKey("checkBox")] = newValueg
+        }
+        checkBox =
+            context.dataStore.data.first()[booleanPreferencesKey("checkBox")] ?: false
+    }*/
 
 }
 
