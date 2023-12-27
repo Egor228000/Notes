@@ -8,7 +8,9 @@
 - Отслежиание прогресса выполнение задач
 - Показ температуры по местоположению
 ## Стэк технологий
-- [Jatpack Compose](https://developer.android.com/jetpack/compose) - для создание пользовательского интерфейса 
+- [Jatpack Compose](https://developer.android.com/jetpack/compose) - для создание пользовательского интерфейса
+- [Navigating Compose](https://developer.android.com/jetpack/compose/navigation) - navigation
+- [Coil](https://coil-kt.github.io/coil/) - library for uploading images
 - [Balloon](https://github.com/skydoves/Balloon) - всплывающее сообщение для подсказки пользователям
 - [Okhttp](https://github.com/square/okhttp) - библиотека для работы с HTTP
 - [Retrofit2](https://square.github.io/retrofit/) - REST клиент
