@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Заметки</string>
+    <string name="defalt_web_id">web_id</string>
+</resources>
